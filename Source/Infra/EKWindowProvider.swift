@@ -118,7 +118,7 @@ final class EKWindowProvider: EntryPresenterDelegate {
      In case *name* has the value of *nil*, the result is *true* if any entry is currently displayed.
      */
     func isCurrentlyDisplaying(entryNamed name: String? = nil) -> Bool {
-        guard let entryView = entryView else {
+        guard let entryView = entryView, rootVC != nil else {
             return false
         }
         if let name = name { // Test for names equality
@@ -169,6 +169,7 @@ final class EKWindowProvider: EntryPresenterDelegate {
     /** Dismiss entries according to a given descriptor */
     func dismiss(_ descriptor: SwiftEntryKit.EntryDismissalDescriptor, with completion: SwiftEntryKit.DismissCompletionHandler? = nil) {
         guard let rootVC = rootVC else {
+            completion?()
             return
         }
         
